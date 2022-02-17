@@ -28,7 +28,13 @@ const exampleMovies = require("./movies");
       "James and the Giant Peach",
     ];
  */
-function getAllMovieTitles() {}
+function getAllMovieTitles(movies) {
+  let newArray = []
+  for (let movie of movies){
+    newArray.push(movie.title)
+  }
+  return newArray
+}
 
 /**
  * getHighestMetascore()
@@ -41,7 +47,15 @@ function getAllMovieTitles() {}
  *  getHighestMetascore(movies);
  *  //> 96
  */
-function getHighestMetascore() {}
+function getHighestMetascore(movies) {
+  let highest = 0
+  for(let movie of movies){
+    if (movie.metascore > highest){
+      highest = movie.metascore
+    }
+  }
+  return Number(highest)
+}
 
 /**
  * getAverageIMDBRating()
@@ -54,7 +68,13 @@ function getHighestMetascore() {}
  *  getAverageIMDBRating(movies);
  *  //> 7.76
  */
-function getAverageIMDBRating() {}
+function getAverageIMDBRating(movies) {
+  let average = 0 
+    for (let movie of movies){
+     average += Number(movie.imdbRating)/movies.length
+    }
+    return average
+}
 
 /**
  * countByRating()
@@ -67,7 +87,17 @@ function getAverageIMDBRating() {}
  *  countByRating(movies);
  *  //> { G: 3, PG: 7 }
  */
-function countByRating() {}
+function countByRating(movies) {
+let newRatings = {};
+for (let movie of movies){
+  if (!newRatings[movie.rated]){
+    newRatings[movie.rated] = 1
+  } else {
+    newRatings[movie.rated] ++ 
+    }
+  } 
+  return newRatings
+}
 
 /**
  * findById()
@@ -83,7 +113,15 @@ function countByRating() {}
       // Toy Story 4
     };
  */
-function findById() {}
+function findById(movies, id) {
+  let movieID = null
+  for (let movie of movies){
+    if (movie.imdbID === id){
+      return movie
+    }
+  }
+  return movieID
+}
 
 /**
  * filterByGenre()
@@ -99,13 +137,21 @@ function findById() {}
       {
         // Coco
       }
-    ]
+    ]a
  *
  * EXAMPLE:
  *  filterByGenre(movies, "Horror")
  *  //> []
  */
-function filterByGenre() {}
+function filterByGenre(movies, genre) {
+  let filteredMovie = []
+  for (let movie of movies){
+    if (movie.genre.toLowerCase().includes(genre.toLowerCase())){
+      filteredMovie.push(movie)
+    }
+  }
+  return filteredMovie
+}
 
 /**
  * getAllMoviesReleasedAtOrBeforeYear()
@@ -129,7 +175,15 @@ function filterByGenre() {}
       }
     ];
  */
-function getAllMoviesReleasedAtOrBeforeYear() {}
+function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
+  let movieReleaseDate = []
+  for (let movie of movies){
+    if (movie.released.split(' ')[2] <= year) {
+      movieReleaseDate.push(movie)
+    }
+  }
+  return movieReleaseDate
+}
 
 /**
  * getBiggestBoxOfficeMovie()
@@ -142,7 +196,19 @@ function getAllMoviesReleasedAtOrBeforeYear() {}
  *  getBiggestBoxOfficeMovie(movies);
  *  //> "Incredibles 2"
  */
-function getBiggestBoxOfficeMovie() {}
+function getBiggestBoxOfficeMovie(movies) {
+  let theBigOne = ''
+  let moneyEarned = 0
+  for (movie of movies){
+    let moneyMade = Number(movie.boxOffice.slice(1).split(',').join('')) 
+    if (moneyMade > moneyEarned){
+      moneyEarned = moneyMade
+      theBigOne = movie.title
+    }
+  }
+  return theBigOne || null
+}
+//unrelated, I worked at an AMC for a year and god this assignment gives me flashbacks
 
 // Do not change anything below this line.
 module.exports = {
